@@ -40,9 +40,10 @@ app.get("*", async (req, res) => {
     });
     // get store state (js object of entire store)
     let preloadedState = store.getState();
+    const context = {};
     const html = ReactDOM.renderToString(
       <Provider store={store}>
-        <Router location={req.url}>
+        <Router context={context} location={req.url}>
           <App />
         </Router>
       </Provider>
@@ -58,7 +59,7 @@ app.get("*", async (req, res) => {
 
 const port = process.env.PORT || 9000;
 app.listen(port, function() {
-  console.log("app running on localhost:" + port);
+  console.log("App running on http://localhost:" + port);
 });
 
 function renderFullPage(html, preloadedState, helmet) {

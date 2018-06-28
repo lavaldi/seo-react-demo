@@ -31,7 +31,6 @@ module.exports = {
           }
         ]
       }
-      //loaders for other file types can go here
     ]
   },
   externals: nodeExternals(),

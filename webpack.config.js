@@ -1,5 +1,4 @@
-const path = require("path"),
-  webpack = require("webpack");
+const path = require("path");
 
 module.exports = {
   mode: "development",
@@ -27,7 +26,6 @@ module.exports = {
           }
         ]
       }
-      //loaders for other file types can go here
     ]
   }
 };
