@@ -1,5 +1,5 @@
-import Home from "../app/home.jsx";
-import User from "../app/user.jsx";
+import Home from "../App/Home.jsx";
+import User from "../App/User.jsx";
 
 export default {
   routes: [

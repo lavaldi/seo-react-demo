@@ -2,13 +2,13 @@ import express from "express";
 import React from "react";
 import ReactDOM from "react-dom/server";
 import helmet from "react-helmet";
-import App from "../shared/app/app.jsx";
+import App from "../shared/App/App.jsx";
 const app = express();
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import reducers from "../shared/app/redux/reducers/combine";
+import reducers from "../shared/App/redux/reducers/combine";
 import { StaticRouter as Router, matchPath } from "react-router";
-import thunk from "../shared/app/redux/middleware/thunk";
+import thunk from "../shared/App/redux/middleware/thunk";
 import routeBank from "../shared/routes/routes";
 
 app.use("/dist", express.static("./dist"));
@@ -58,7 +58,7 @@ app.get("*", async (req, res) => {
 });
 
 const port = process.env.PORT || 9000;
-app.listen(port, function() {
+app.listen(port, function () {
   console.log("App running on http://localhost:" + port);
 });
 
@@ -78,9 +78,9 @@ function renderFullPage(html, preloadedState, helmet) {
           // WARNING: See the following for security issues around embedding JSON in HTML:
           // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
-            /</g,
-            "\\u003c"
-          )}
+      /</g,
+      "\\u003c"
+    )}
         </script>
         <script src="/dist/assets/app.bundle.js"></script>
       </body>
