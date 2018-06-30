@@ -1,6 +1,6 @@
 # Basic Isomorphic/Universal React App
 
-### Install
+### Build & Run Instructions
 
 1.  Clone repository
 2.  `yarn install`
