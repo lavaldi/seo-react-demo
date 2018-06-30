@@ -1,16 +1,36 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Helmet } from "react-helmet";
-import * as actions from "./redux/actions/user-actions";
+import { getUser } from "../Services/userService";
 
-class User extends Component {
-  static fetchData({ store }) {
-    return store.dispatch(actions.getName(1));
+export default class User extends Component {
+  static fetchData() {
+    return getUser(1);
   }
+
+  constructor (props) {
+    super(props);
+
+    let data;
+    if (typeof window != "undefined" && window.__PRELOADED_STATE__) {
+      data = window.__PRELOADED_STATE__;
+      delete window.__PRELOADED_STATE__
+    }
+
+    this.state = data ? data : {};
+  }
+
   componentDidMount() {
-    this.props.getName(1);
+    if (!!!Object.keys(this.state).length) {
+      getUser(1)
+        .then((response) => {
+          this.setState({
+            name: response.data.name,
+            email: response.data.email,
+          })
+        });
+    }
   }
+
   render() {
     return (
       <div>
@@ -21,23 +41,9 @@ class User extends Component {
         <strong>User page </strong>
         <p>Async data</p>
         <pre>
-          [name: {this.props.name}, email: {this.props.email}]
+          [name: {this.state.name}, email: {this.state.email}]
         </pre>
       </div>
     );
   }
 }
-function mapStateToProps(state) {
-  return {
-    ...state.user
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actions, dispatch);
-}
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  null,
-  { withRef: true }
-)(User);
