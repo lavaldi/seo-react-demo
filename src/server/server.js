@@ -31,7 +31,7 @@ app.get("*", async (req, res) => {
     const response = await component.fetchData();
     const preloadedData = response ? response.data : {};
     // get store state (js object of entire store)
-    const context = {};
+    const context = { data: preloadedData };
     const html = ReactDOM.renderToString(
       <Router context={context} location={req.url}>
         <App />
@@ -63,7 +63,7 @@ function renderFullPage(html, preloadedData, helmet) {
       <body>
         <div id="root">${html}</div>
         <script>
-          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedData)}
+          window.__INITIAL_STATE__ = ${JSON.stringify(preloadedData)}
         </script>
         <script src="/dist/assets/app.bundle.js"></script>
       </body>
